@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<!-- 指定Struts2配置文件的根元素 -->
+<struts>
+	<!-- 指定全局国际化资源文件 -->
+	<constant name = "struts.custom.i18n.resources" value = "mess"/>
+		
+	<constant name = "struts.i18n.encoding" value = "UTF-8"/>
+	
+	<package name="userPackage" extends="struts-default" namespace="/user">
+		
+		<!-- 定义登录检查拦截器 -->
+		<interceptors>
+					<interceptor name="userlogincheck" class="com.interceptor.AuthorityUserLoginInterceptor"></interceptor>
+		</interceptors>
+			
+		<!-- 保护网页 -->
+		<action name="*">
+			<result>/WEB-INF/user/{1}.jsp</result>
+			<result name="input">/WEB-INF/user/userlogin.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="userlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 过滤登录IP -->
+		<action name="userlogin" class="com.util.FilterIP" method="filterIP">
+			<result name="success">/WEB-INF/user/userlogin.jsp</result>
+			<result name="error">/WEB-INF/user/404.html</result>
+		</action>
+		
+		<!-- 验证码的请求 -->
+		<action name="captchaSubmit">
+			<result>/WEB-INF/user/captchaSubmit.jsp</result>
+		</action>
+		
+		<!-- 修改学生的密码 -->
+		<action name="updateUserPass" class="com.action.StudentAction" method="updatePass">
+			<result name="success">/WEB-INF/user/UpdateStuInfo.jsp</result>
+			<result name="error">/WEB-INF/user/UpdateStuInfo.jsp</result>
+			<result name="input">/WEB-INF/user/userlogin.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="userlogincheck"></interceptor-ref>
+		</action>
+		
+	</package>
+	
+	<package name="clientPackage" extends="struts-default" namespace="/client">
+		
+		<!-- 定义登录检查拦截器 -->
+		<interceptors>
+					<interceptor name="userlogincheck" class="com.interceptor.AuthorityUserLoginInterceptor"></interceptor>
+		</interceptors>
+		
+		<!-- 保护网页 -->
+		<action name="*" >
+			<result>/WEB-INF/client/{1}.jsp</result>
+			<result name="input">/WEB-INF/user/userlogin.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="userlogincheck"></interceptor-ref>
+		</action>
+	
+		<!-- 学生登录的Action -->
+		<action name="useloginAct" class="com.action.StudentAction" method="userLogin">
+			<result name="success">/WEB-INF/client/Client.jsp</result>
+			<result name="error">/WEB-INF/user/userlogin.jsp</result>
+		</action>
+		
+		<!-- 学生端的考试试题页面 -->
+		<action name="allTestAct" class="com.action.TakeExamAction" method="examInfo">
+			<result name="success">/WEB-INF/client/take_the_test.jsp</result>
+			<result name="input">/WEB-INF/user/userlogin.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="userlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 学生参加考试的时间判断 -->
+		<action name="takeTestAct" class="com.action.TakeExamAction" method="takeTest">
+			<result name="success">/WEB-INF/client/TakeExam.jsp</result>
+			<result name="error">/WEB-INF/client/take_the_test.jsp</result>
+			<result name="input">/WEB-INF/user/userlogin.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="userlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 学生提交的考试试题答案 -->
+		<action name="uploadAnswerAct" class="com.action.TakeExamAction" method="uploadAnswer">
+			<result name="success">/WEB-INF/client/exit.jsp</result>
+			<result name="input">/WEB-INF/user/userlogin.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="userlogincheck"></interceptor-ref>
+		</action>
+			
+	</package>
+</struts>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<!-- 指定Struts2配置文件的根元素 -->
+<struts>
+	<!-- 指定全局国际化资源文件 -->
+	<constant name = "struts.custom.i18n.resources" value = "mess"/>
+		
+	<constant name = "struts.i18n.encoding" value = "UTF-8"/>
+	
+	
+	<package name="android" extends="json-default">
+		<action name="androidLogin" class="com.android.LoginAction" method="adminlogin">
+			<result type="json"></result>
+		</action>
+		<action name="androidTime" class="com.android.LoginAction" method="setTimes">
+			<result type="json"></result>
+		</action>
+		<action name="androidDir" class="com.android.LoginAction" method="setDir">
+			<result type="json"></result>
+		</action>
+		<action name="androidIPS" class="com.android.LoginAction" method="setIPS">
+			<result type="json"></result>
+		</action>
+	</package>
+</struts>

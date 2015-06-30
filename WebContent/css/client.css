@@ -1,0 +1,29 @@
+
+.container_top {
+	margin-top: 100px;
+}
+.container_top .span2 img {
+	width: 140px;
+	height: 140px;
+	margin-bottom: 1em;
+}
+/*------------------------------------------------------------------
+[Account / .account-container]
+*/
+
+.account-details span {
+	display: block;
+}
+
+.account-details .account-name {
+	
+	font-weight: 600;
+	padding-left: 3em;
+	padding-bottom: 1em;
+}
+
+.account-details .account-role {
+	color: #888;
+	padding-left: 2em;
+}
+

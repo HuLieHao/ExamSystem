@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- 配置adminService实例，其实现类是AdminServiceImpl -->
+	<bean id="adminService" class="com.service.impl.AdminServiceImpl">
+		<!-- 将adminDao注入给adminDao属性 -->
+		<property name="adminDao">
+			<ref bean="adminDao"/>
+		</property>
+	</bean>
+	
+	<!-- 配置StudentService实例，其实现类是AdminServiceImpl -->
+	<bean id="studentService" class="com.service.impl.StudentServiceImpl">
+		<!-- 将studentDao注入给studentDao属性 -->
+		<property name="studentDao">
+			<ref bean="studentDao"/>
+		</property>
+		<property name="record">
+			<ref bean="record"/>
+		</property>
+		<property name="filterIP">
+			<ref bean="filterIP"/>
+		</property>
+	</bean>
+	
+	<!-- 配置ExamService实例，其实现类是ExamServiceImpl -->
+	<bean id="examService" class="com.service.impl.ExamServiceImpl">
+		<!-- 将examDao注入给examDao属性 -->
+		<property name="examDao">
+			<ref bean="examDao"/>
+		</property>
+		<property name="cache">
+			<ref bean="cache"/>
+		</property>
+	</bean>
+	
+	<!-- 配置RulesService实例，其实现类是RulesServiceImpl -->
+	<bean id="rulesService" class="com.service.impl.RulesServiceImpl">
+		<!-- 将rulesDao注入给rulesDao属性-->
+		<property name="rulesDao">
+			<ref bean="rulesDao"/>
+		</property>
+		<property name="studentDao">
+			<ref bean="studentDao"/>
+		</property>
+	</bean>
+	
+	
+	<bean id="takeExamService" class="com.service.impl.TakeExamServiceImpl">
+		<property name="cache">
+			<ref bean="cache"/>
+		</property>
+		<property name="record">
+			<ref bean="record"/>
+		</property>
+		<property name="filterIP">
+			<ref bean="filterIP"/>
+		</property>
+		<!-- 将examDao注入给examDao属性 -->
+		<property name="examDao">
+			<ref bean="examDao"/>
+		</property>
+		<property name="uploadFile">
+			<ref bean="uploadFile"/>
+		</property>
+	</bean>
+	
+	
+</beans>

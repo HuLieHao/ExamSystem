@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- 配置adminDao实例，其实现类是AdminDaoImpl -->
+	<bean id="adminDao" class="com.dao.impl.AdminDaoImpl">
+		<!-- 将sessionFactory注入给sessionFactory属性 -->
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 配置studentDao实例，其实现类是StudentDaoImpl -->
+	<bean id="studentDao" class="com.dao.impl.StudentDaoImpl">
+		<!-- 将sessionFactory注入给sessionFactory属性 -->
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 配置ExamDao实例，其实现类是ExamDaoImpl -->
+	<bean id="examDao" class="com.dao.impl.ExamDaoImpl">
+		<!-- 将sessionFactory注入给sessionFactory属性 -->
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 配置RulesDao实例，其实现类是RulesDaoImpl -->
+	<bean id="rulesDao" class="com.dao.impl.RulesDaoImpl">
+		 <property name="cache">
+			<ref bean="cache"/>
+		</property>
+	</bean>
+	
+	<!-- 配置cache实例，其实现类是Cache -->
+	<bean id="cache" class="com.util.Cache">
+		<!-- 将examDao注入给examDao属性-->
+		<property name="examDao">
+			<ref bean="examDao"/>
+		</property>
+	</bean>
+	
+	<!-- 配置record,其实现类是RecordDaoImpl -->
+	<bean id="record" class="com.dao.impl.RecordDaoImpl">
+		<!-- 将sessionFactory注入给sessionFactory属性 -->
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 配置filterIP实例，其实现类是FilterIP -->
+	<bean id="filterIP" class="com.util.FilterIP">
+		<property name="cache">
+			<ref bean="cache"/>
+		</property>
+	</bean>
+	
+	<bean id="uploadFile" class="com.util.ConfigUploadFile"/>
+	
+</beans>

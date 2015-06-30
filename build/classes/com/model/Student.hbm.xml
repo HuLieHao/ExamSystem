@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.model">
+	<class name="Student" table="Student">
+		<!-- 映射标识属性 -->
+		<id name="id" column="id" type="java.lang.Integer">
+			<!-- 指定主键生成器策略 -->
+			<generator class="identity"/>
+		</id>
+		<!-- 映射普通属性 -->
+		<property name="student_ID" type="java.lang.String">
+			<column name="student_ID" not-null="true"/>
+		</property>
+		<property name="name" type="java.lang.String">
+			<column name="name" not-null="true"/>
+		</property>
+		<property name="sex" type="java.lang.String">
+			<column name="sex" not-null="true"/>
+		</property>
+		<property name="classes" type="java.lang.String">
+			<column name="classes" not-null="true"/>
+		</property>
+		<property name="professional" type="java.lang.String">
+			<column name="professional" not-null="true"/>
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="password" not-null="true"/>
+		</property>
+		
+	</class>
+</hibernate-mapping>

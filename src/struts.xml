@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<!-- 指定Struts2配置文件的根元素 -->
+<struts>
+	
+	<!-- 让struts过滤掉富文本编辑器的jsp页面信息 -->
+	<constant name="struts.action.excludePattern" value="/ueditor/.*" />
+	
+	
+	
+	<!-- 导入服务器端的配置文件 -->
+	<include file="struts-server.xml"/>
+	
+	<!-- 导入客户端的配置文件 -->
+	<include file="struts-client.xml"/>
+	
+	<!-- 导入android服务端APP的配置文件 -->
+	<include file="struts-android.xml"/>
+	
+</struts>

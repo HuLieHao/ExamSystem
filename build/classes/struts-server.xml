@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<!-- 指定Struts2配置文件的根元素 -->
+<struts>
+	<!-- 指定全局国际化资源文件 -->
+	<constant name = "struts.custom.i18n.resources" value = "mess"/>
+		
+	<constant name = "struts.i18n.encoding" value = "UTF-8"/>
+	
+	<package name="adminPackage" extends="struts-default" namespace="/admin">
+		
+		<!-- 定义登录检查拦截器 -->
+		<interceptors>
+					<interceptor name="adminlogincheck" class="com.interceptor.AuthorityAdminLoginInterceptor"></interceptor>
+		</interceptors>
+		
+		<!-- 保护网页 -->
+		<action name="*">
+			<result>/WEB-INF/admin/{1}.jsp</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 管理员验证码的请求 -->
+		<action name="captchaSubmit">
+			<result>/WEB-INF/admin/captchaSubmit.jsp</result>
+		</action>
+		
+		<!-- 管理员登录的Action -->
+		<action name="adminloginAct" class="com.action.AdminAction" method="adminLogin">
+			<result name="success">/WEB-INF/server/index.jsp</result>
+			<result name="error">/WEB-INF/admin/adminlogin.jsp</result>
+		</action>
+		
+		<!-- 修改管理员的登录密码 -->
+		<action name="updateAdminPass" class="com.action.AdminAction" method="updatePass">
+			<result name="success">/WEB-INF/admin/AdminInfo.jsp</result>
+			<result name="error">/WEB-INF/admin/AdminInfo.jsp</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+	</package>
+	
+	<package name="serverPackage" extends="struts-default" namespace="/server">
+	
+		<!-- 定义登录检查拦截器 -->
+		<interceptors>
+					<interceptor name="adminlogincheck" class="com.interceptor.AuthorityAdminLoginInterceptor"></interceptor>
+		</interceptors>
+		
+		<!-- 保护网页 -->
+		<action name="*">
+			<result>/WEB-INF/server/{1}.jsp</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 学生信息管理 -->
+		
+		<!-- 学生的全部信息 -->
+		<action name="AllStuInfo" class="com.action.StudentAction" method="allStu">
+	  		<result name="success">/WEB-INF/server/AllStu.jsp</result>
+	  		<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+	  		<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+	  	</action>
+	  	
+	  	<!-- 添加学生的信息 -->
+	  	<action name="AddStu" class="com.action.StudentAction" method="addStu">
+	  		<result name="success">/WEB-INF/server/AllStu.jsp</result>
+	  		<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+	  		<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+	  	</action>
+	  	
+	  	<!-- 修改学生的信息 -->
+	    <action name="UpdateStu" class="com.action.StudentAction" method="updateInfo">
+	  		<result name="success">/WEB-INF/server/AllStu.jsp</result>
+	  		<result name="error">error.jsp</result>
+	  		<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+	  		<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+	  	</action>
+	  	
+	  	<!-- 删除学生的信息 -->
+	  	<action name="DeleStu" class="com.action.StudentAction" method="deleInfo">
+	  		<result name="success">/WEB-INF/server/AllStu.jsp</result>
+	  		<result name="error">error.jsp</result>
+	  		<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+	  		<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+	  	</action>
+	  	
+	  	<!-- 按学号或班级查询学生信息 -->
+		<action name="SearchStu" class="com.action.StudentAction" method="searchInfo">	
+	  		<result name="success">/WEB-INF/server/AllStu.jsp</result>
+	  		<result name="error">error.jsp</result> 
+	  		<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+	  		<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+	  	</action>
+	  	
+	  	<!-- 按专业和班级查询学生的信息 -->
+	  	<action name="ChoiceStu" class="com.action.StudentAction" method="choiceStu">
+	  		<result name="success">/WEB-INF/server/AllStu.jsp</result>
+	  		<result name="error">error.jsp</result>
+	  		<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+	  		<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+	  	</action>
+	  	
+	  	<!-- 上传、下载管理 -->
+	  	
+	  	<!-- 配置文件上传的Action -->
+	  	<action name="uploadAction" class="com.excel.UploadAction" method="Upload">
+	  		<!-- 配置允许上传的文件类型 -->
+	  		<param name="allowTypes">application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+	  		<!-- 动态设置Action的值 -->
+	  		<param name="savePath">/upload</param>
+	  		<result name="success">/WEB-INF/server/upload.jsp</result>
+	  		<result name="input">/WEB-INF/server/upload.jsp</result>
+	  		<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+	  	</action>
+	  	
+	  	<!-- 考试试题管理 -->
+	  	
+	  	<!-- 全部的考试试题集 -->
+		<action name="allQuestionsAct" class="com.action.ExamAction" method="allExam">
+			<result name="success">/WEB-INF/server/examQuestions.jsp</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 添加考试试题集 -->
+		<action name="ExamQuestionsAct" class="com.action.ExamAction" method="addOrUpdateExam">
+			<result name="success">/WEB-INF/server/examQuestions.jsp</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 删除考试试题 -->
+		<action name="delQuestionAct" class="com.action.ExamAction" method="delExam">
+			<result name="success">/WEB-INF/server/examQuestions.jsp</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 将试题添加到考试试题中 -->
+		<action name="addExamAct" class="com.action.ExamAction" method="addExam">
+			<result name="success">/WEB-INF/server/examQuestions.jsp</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 将试题从考试试题中删除 -->
+		<action name="delExamAct" class="com.action.ExamAction" method="cancelExam">
+			<result name="success">/WEB-INF/server/examQuestions.jsp</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 考试规则设置 -->
+		
+		<!-- 进入考试规则设置前的action -->
+		<action name="PreRulesAct" class="com.action.RulesAction" method="preRuels">
+			<result name="success">/WEB-INF/server/Rules.jsp</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<result name="error"></result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 清除考试时间 -->
+		<action name="clearTimeAct" class="com.action.RulesAction" method="clearTime">
+			<result name="success" type="redirect">PreRulesAct.do</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<result name="error"></result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 考试时间规则设置 -->
+		<action name="RulesAct" class="com.action.RulesAction" method="setTimes">
+			<result name="success" type="redirect">PreRulesAct.do</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<result name="error"></result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 考题选择规则设置 -->
+		<action name="RulesQuestionAct" class="com.action.RulesAction" method="setChoiceQuestions">
+			<result name="success" type="redirect">PreRulesAct.do</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 作业提交目录设置 -->
+		<action name="dirAct" class="com.action.RulesAction" method="setExamDirectory">
+			<result name="success" type="redirect">PreRulesAct.do</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 考试IP规则设置 -->
+		<action name="IPAct" class="com.action.RulesAction" method="setIP">
+			<result name="success" type="redirect">PreRulesAct.do</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 进行作业批改 -->
+		<action name="CorrectWorkAct" class="com.action.GradeAction" method="CorrectWork">
+			<result name="success" type="redirect">PreRulesAct.do</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<action name="getResultGradeAct" class="com.action.GradeAction" method="getResultGrade">
+			<result name="success" type="redirect">PreRulesAct.do</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<!-- 学生考试限制 -->
+		
+		<action name="stuAllowID" class="com.action.RulesAction" method="setAllowID">
+			<result name="success" type="redirect">PreRulesAct.do</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		<action name="clearAllowID" class="com.action.RulesAction" method="clearAllowID">
+			<result name="success" type="redirect">PreRulesAct.do</result>
+			<result name="input">/WEB-INF/admin/adminlogin.jsp</result>
+			<!-- 使用系统默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="adminlogincheck"></interceptor-ref>
+		</action>
+		
+		
+	</package>
+	
+	<!-- 查看考试试题 -->
+	<package name="json" extends="json-default" namespace="/json">
+		<!-- 查看试题的action -->
+		<action name="seeExamAct" class="com.action.ExamAction" method="seeExam">
+			<!-- 返回类型为json 在sjon-default中定义 -->  
+			<result type="json">
+			 	<!-- root的值对应要返回的值的属性 -->  
+                <!-- 这里的result值即是 对应action中的 result --> 
+				<param name="root">object</param>
+			</result>
+		</action>
+	
+	</package>
+	
+</struts>

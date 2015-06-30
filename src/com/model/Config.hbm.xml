@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.model">
+	<class name="Config" table="Config">
+		<!-- 映射标识属性 -->
+		<id name="id" column="id" type="java.lang.Integer">
+			<!-- 指定主键生成器策略 -->
+			<generator class="identity"/>
+		</id>
+		<!-- 映射普通属性 -->
+		<property name="startTime" type="java.lang.String">
+			<column name="startTime" not-null="true"/>
+		</property>
+		<property name="endTime" type="java.lang.String">
+			<column name="endTime" not-null="true"/>
+		</property>
+		<property name="lessTime" type="java.lang.String">
+			<column name="lessTime" not-null="true"/>
+		</property>
+		<property name="upload" type="java.lang.String">
+			<column name="upload" not-null="true"/>
+		</property>
+		<property name="testRules" type="java.lang.String">
+			<column name="testRules" not-null="true"/>
+		</property>
+		<property name="testID" type="java.lang.String">
+			<column name="testID" not-null="true"/>
+		</property>
+		<property name="singlIP" type="java.lang.String">
+			<column name="singlIP" not-null="true"/>
+		</property>
+		<property name="segmentIP" type="java.lang.String">
+			<column name="segmentIP" not-null="true"/>
+		</property>
+		
+	</class>
+</hibernate-mapping>
